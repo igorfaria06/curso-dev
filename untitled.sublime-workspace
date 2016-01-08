@@ -1,0 +1,221 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"create",
+				"create-edit"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse Illuminate\\Http\\Request;\n\nuse App\\Http\\Requests;\nuse App\\Http\\Controllers\\Controller;\nuse DB;\nuse App\\Models\\Curso\\Carro;\n\nclass CarrosController extends Controller\n{\n\n	public function getIndex(){\n		$carros = Carro::get();\n\n		return view('curso.carros.index', compact('carros'));\n	}\n\n	public function getCreate(){\n		return view('curso.carros.create-edit');\n	}\n\n	public function getEdit(){\n		return view('curso.carros.create-edit');\n	}\n}",
+			"file": "app/Http/Controllers/CarrosController.php",
+			"file_size": 467,
+			"file_write_time": 1452193541000000,
+			"settings":
+			{
+				"buffer_size": 480,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/views/curso/carros/index.blade.php",
+			"settings":
+			{
+				"buffer_size": 168,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/proativos/vhosts/curso.dev/app/Models/curso/Carro.php",
+		"/home/proativos/vhosts/curso.dev/database/seeds/DatabaseSeeder.php",
+		"/media/proativos/Arquivos/www/dozero/_app/Models/Email.class.php",
+		"/media/proativos/Arquivos/www/dozero/_app/Models/Seo.class.php",
+		"/media/proativos/Arquivos/www/dozero/_app/Models/Login.class.php",
+		"/home/proativos/vhosts/curso.dev/database/seeds/CarrosSeeder.php",
+		"/home/proativos/vhosts/curso.dev/database/migrations/2016_01_07_120521_create_table_carro.php",
+		"/etc/php5/fpm/php.ini",
+		"/etc/hosts",
+		"/etc/nginx/sites-available/financeiro.dev",
+		"/var/www/vhosts/financeiro.dev/public/index.php",
+		"/home/proativos/vhosts/financeiro.dev/.env",
+		"/etc/php5/fpm/hosts"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app/Http/Controllers/CarrosController.php",
+					"settings":
+					{
+						"buffer_size": 480,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								154,
+								154
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "resources/views/curso/carros/index.blade.php",
+					"settings":
+					{
+						"buffer_size": 168,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								168,
+								168
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}

@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
-use App\Carro;
+use App\Models\Curso\Carro;
 
 class CarrosController extends Controller
 {
 
 	public function getIndex(){
 		$carros = Carro::get();
+		$titulo = 'Listagem dos carros';
 
 		return view('curso.carros.index', compact('carros'));
 	}
@@ -22,7 +23,19 @@ class CarrosController extends Controller
 		return view('curso.carros.create-edit');
 	}
 
-	public function getEdit(){
-		return view('curso.carros.create-edit');
+	public function postCreate(Request $request){
+		$dadosForm = $request->all();
+		Carro::create($dadosForm);
+		return redirect('carros');
 	}
+
+	public function getEdit($idCarro){
+		$carro = Carro::find($idCarro);
+	return view('curso.carros.create-edit', compact('carro'));
+		}
+
+		public function postEdit($idCarro){
+		return 'editando';
+	}
+
 }

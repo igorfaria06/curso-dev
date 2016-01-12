@@ -1,16 +1,24 @@
 @extends('curso.templates.index')
 
 @section('content')
-
 <h1> Create Edit Carros </h1>
-	{{$carro->nome}}
+<?php var_dump($errors->all); ?>
+
+<!--
+	@if (count($Errors) > 0)
+	@foreach ($Errors->all() as $error)
+	{{$error}}
+	@endforeach
+	@endif -->
+
+
 	@if ( isset($carro))
 		{!!Form::open( ['url' => "carros/edit/{$carro->id}"])!!}
 	@else
 		{!!Form::open( ['url' => 'carros/create'])!!}
 	@endif
-	{!!Form::text('nome', (isset($carro->nome) ? $carro->nome : 'null'), ['placeholder' => 'Nome do Carro'])!!}
-	{!!Form::text('placa', (isset($carro->placa) ? $carro->placa : 'null'), ['placeholder' => 'Placa do Carro'])!!}
+	{!!Form::text('nome', (isset($carro->nome) ? $carro->nome : null), ['placeholder' => 'Nome do Carro'])!!}
+	{!!Form::text('placa', (isset($carro->placa) ? $carro->placa : null), ['placeholder' => 'Placa do Carro'])!!}
 	{!!Form::submit('Enviar')!!}
 	{!!Form::close()!!}
 @endsection

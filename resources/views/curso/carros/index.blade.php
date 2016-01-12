@@ -4,7 +4,6 @@
 
 Conteudo Slide
 @parent
-
 @endsection
 
 
@@ -14,7 +13,9 @@ Conteudo Slide
 
 
 @forelse ($carros as $carro)
-<p> <b>Nome:</b> {{$carro->nome}}  ({{$carro->placa}})  {!! Html::link("carros/edit/{$carro->id}", 'Editar') !!}</p>
+<p> <b>Nome:</b> {{$carro->nome}}  ({{$carro->placa}})  {!! Html::link("carros/edit/{$carro->id}", 'Editar') !!}  |  {!!  Html::link("carros/delete/{$carro->id}", 'Deletar') !!}</p>
 @empty <p> Nenhum carro cadastrado </p>
 @endforelse
+{!! Html::link('carros/create', 'Adicionar novo carro')  !!}
+
 @endsection

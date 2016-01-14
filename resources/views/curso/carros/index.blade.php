@@ -1,21 +1,36 @@
 @extends('curso.templates.index')
 
-@section('slide')
-
-Conteudo Slide
-@parent
-@endsection
-
-
-
+<!-- ESTOU COMEÇANDO -->
 @section('content')
-<h1> Index do Carros </h1>
+<div class="jumbotron"><h1>Dashboard Carros </h1></div>
 
 
-@forelse ($carros as $carro)
-<p> <b>Nome:</b> {{$carro->nome}}  ({{$carro->placa}})  {!! Html::link("carros/edit/{$carro->id}", 'Editar') !!}  |  {!!  Html::link("carros/delete/{$carro->id}", 'Deletar') !!}</p>
-@empty <p> Nenhum carro cadastrado </p>
-@endforelse
-{!! Html::link('carros/create', 'Adicionar novo carro')  !!}
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Nome</th>
+			<th>Placa</th>
+			<th style='width:130px'>Açoes</th>
+		</tr >
+	</thead>
+
+	<tbody>
+		@forelse ($carros as $carro)
+		<tr>
+			<th>{{$carro->nome}}</th>
+			<th>{{$carro->placa}}</th>
+			<th>{!! Html::link("carros/edit/{$carro->id}", 'Editar') !!}  |  {!!  Html::link("carros/delete/{$carro->id}", 'Deletar') !!}</th>
+		</tr>
+		@empty
+		<p> Nenhum carro cadastrado </p>
+		@endforelse
+	</tbody>
+</table>
+<div class='row'>
+	<div class="col-md-4 col-md-offset-4">
+		{{$carros->render()}}
+	</div>
+</div>
+{!! Html::link('carros/create', 'Adicionar novo carro', ['class' => 'btn btn-default btn-xs'])  !!}
 
 @endsection

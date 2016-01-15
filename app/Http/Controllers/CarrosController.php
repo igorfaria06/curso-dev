@@ -26,17 +26,16 @@ class CarrosController extends Controller
 
 	public function postCreate(Request $request){
 		$dadosForm = $request->except('file');
-		$rules = [
-		'nome' => 'required|min:2|max:5',
-		'placa' => 'required|min:3|max:3'
-		];
-		$validacao = Validator::make($dadosForm, $rules);
+		$validator = Validator::make($dadosForm, [
+		          'nome' => 'required|min:2|max:2',
+		          'placa' => 'required|min:2|max:3',
+		      ]);
 
-		$file = Input::file('file');
-		$dd($file);
-		if ($file != ""):
-			$fileArray->move('assets/uploads/images', $file);
-		endif;
+		      if ($validator->fails()) {
+		          return redirect('post/create')
+		                      ->withErrors($validator)
+		                      ->withInput();
+		      }
 
 
 		Carro::create($dadosForm);
@@ -51,7 +50,6 @@ class CarrosController extends Controller
 	public function postEdit(Request $request, $idCarro){
 		$dadosForm = $request->except('_token');
 		Carro::where('id' , $idCarro)->update($dadosForm);
-
 		return redirect ('carros');
 	}
 	public function getDelete($idCarro){
@@ -63,7 +61,10 @@ class CarrosController extends Controller
 		return '404';
 	}
 	public function getListCarrosCache(){
-		Chace::put('carros', Carro::all(), 3);
+		$carro = Cache::remember('carros', 3, function() {
+		    return Carro::all();
+		});
+		return redirect('carros', compact('carro'));
 	}
 
 

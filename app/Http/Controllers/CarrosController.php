@@ -27,14 +27,13 @@ class CarrosController extends Controller
 	public function postCreate(Request $request){
 		$dadosForm = $request->except('file');
 		$validator = Validator::make($dadosForm, [
-		          'nome' => 'required|min:2|max:2',
-		          'placa' => 'required|min:2|max:3',
+		          'nome' => 'required|min:2|max:12',
+		          'placa' => 'required|min:2|max:7',
 		      ]);
 
 		      if ($validator->fails()) {
-		          return redirect('post/create')
-		                      ->withErrors($validator)
-		                      ->withInput();
+      	      	$erro = 'Erro ocorrido: Nome ou Placa invalidos';
+				return view('curso.carros.create-edit', compact('erro'));
 		      }
 
 

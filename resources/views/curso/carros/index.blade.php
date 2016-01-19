@@ -6,7 +6,6 @@
 
 <div class="jumbotron"><h1>Dashboard Carros </h1></div>
 
-
 <table class="table table-bordered">
 	<thead>
 		<tr>
@@ -28,6 +27,7 @@
 		@endforelse
 	</tbody>
 </table>
+
 <div class='row'>
 	<div class="col-md-4 col-md-offset-4">
 		{{$carros->render()}}

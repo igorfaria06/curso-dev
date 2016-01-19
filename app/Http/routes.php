@@ -14,6 +14,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('teste', function () {
+    return "aaaaaaaaaaaaaaab//dl";
+});
+
 Route::get('produtos', 'ProdutoController@index');
 
 Route::get('produtos', 'ProdutoController@create');
@@ -26,6 +30,7 @@ Route::get('produtos/{idProd}/{idProd2}', 'ProdutoController@showTwo');
 
 Route::controller('/carros', 'CarrosController');
 
+Route::controller('/users', 'UserController');
 
 /*
 |--------------------------------------------------------------------------

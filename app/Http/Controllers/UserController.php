@@ -9,6 +9,7 @@ use App\User;
 use Validator;
 use Crypt;
 use Hash;
+use Mail;
 
 class UserController extends Controller {
 
@@ -27,12 +28,15 @@ class UserController extends Controller {
      */
     public function getIndex() {
         $titulo = 'Usuários | Curso de Laravel 5';
-        $users = User::paginate(5);
-        $status = '';
-        if($this->request->session()->has('status')):
+        $users  = User::paginate(5);
+        $status = "";
+
+        if ($this->request->session()->has('status'))
+        {
             $status = $this->request->session()->get('status');
-        endif;
-        return view('painel.users.index', compact('users', 'titulo', 'status'));
+        }
+
+        return view('painel.users.index', ['users' => $users, 'titulo' => $titulo, 'status'=> $status]);
     }
 
     /**
@@ -56,9 +60,15 @@ class UserController extends Controller {
 
         $dadosForm['password'] = Hash::make($dadosForm['password']);
 
-        $status = 'Usuario '. $dadosForm['name']. ' cadastrado com sucesso!';
         $this->user->create($dadosForm)->save();
-        $this->request->session()->flash('status', $status);
+
+        $status = "Usuário ".$dadosForm['name']. " foi criado com sucesso!";
+
+        $this->request->session()->flash('status',$status);
+
+        $this->dispararEmails($dadosForm['name']);
+
+
         return redirect('users');
     }
 
@@ -92,27 +102,20 @@ class UserController extends Controller {
         }
         $dadosForm = $this->request->except('_token');
         $dadosForm['password'] = Hash::make($dadosForm['password']);
+
         $this->user->where('id',$id)->update($dadosForm);
-        $status = 'Usuario '. $dadosForm['name']. ' editado com sucesso!';
-        $this->request->session()->flash('status', $status);
 
         return redirect('users');
     }
 
-    public function getVerificaHash($id,$senha)
-    {
-        $user       = $this->user->find($id);
-        $password   = $this->user->password;
+    private function dispararEmails($name) {
 
-        if (Hash::check($senha,  $password))
-        {
-            echo "OK! Hash validado";
-        } else {
-            echo "Ops! Confira seus dados";
-        }
-
+        Mail::send('emails.viewTesteEmail', ['name' => $name], function ($m){
+            $m->to('igorfaria6@gmail.com', 'Aqui e o nome')
+                    ->subject('Novo usuario cadastrado')
+                    ->attach('http://wallpaper.ultradownloads.com.br/121350_Papel-de-Parede-Imagem-Abstrata_1920x1200.jpg');
+});
     }
-
 
 
 

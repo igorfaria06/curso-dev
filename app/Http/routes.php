@@ -95,14 +95,26 @@ Route::controller('carros', 'CarrosController');
 
 Route::controller('users', 'UserController');
 
-Route::get('session/gravar', function(){
-	session(['msg' => 'Mensagem gravada']);
+Route::get('sessao/gravar', function(){
 
-	return '';
+	echo "GRAVAR: Gravando sessão";
+	session(['msg'=>'Gravando sessão no Laravel!']);
+
 });
 
-Route::get('session/exibir', function(){
+Route::get('sessao/exibir', function(){
+
 	$msg = session('msg');
 
 	return $msg;
 });
+
+Route::get('email', function(){
+
+	Mail::raw('Mensagem de texto puro', function($m){
+		$m->to('igorfaria6@gmail.com', 'Joao')->subject('Novo usuario cadastrado');
+	});
+});
+
+
+Route::controller('collection', 'CollectionController');

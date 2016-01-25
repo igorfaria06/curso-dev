@@ -23,6 +23,7 @@
 		<tr>
 			<td>{{$carro->nome}}</td>
 			<td>{{$carro->placa}}</td>
+			<td>{{$carro->placa}}</td>
 			<td>{!! HTML::link("carros/editar/{$carro->id}", 'Editar') !!} | {!! HTML::link("carros/deletar/$carro->id", 'Deletar')!!}</td>
 		</tr>
 			@empty

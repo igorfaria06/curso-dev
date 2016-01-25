@@ -6,19 +6,21 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
-use Validator;
 use Crypt;
 use Hash;
 use Mail;
+use \Illuminate\Validation\Factory as Validator;
 
 class UserController extends Controller {
 
     private $request;
     private $user;
+    private $validator;
 
-    public function __construct(Request $request, User $user) {
+    public function __construct(Request $request, User $user,Validator $validator) {
         $this->request = $request;
         $this->user = $user;
+        $this->validator = $validator;
     }
 
     /**
@@ -28,7 +30,7 @@ class UserController extends Controller {
      */
     public function getIndex() {
         $titulo = 'Usuários | Curso de Laravel 5';
-        $users  = User::paginate(5);
+        $users  = $this->user->paginate(5);
         $status = "";
 
         if ($this->request->session()->has('status'))
@@ -50,23 +52,23 @@ class UserController extends Controller {
 
     public function postAdicionar() {
         $dadosForm = $this->request->all();
+        dd($dadosForm);
 
-        $validator = Validator::make($dadosForm, User::$rules);
+        $validator = $this->validator->make($dadosForm, User::$rules);
         if ($validator->fails()) {
             return redirect('users/adicionar')
             ->withErrors($validator)
             ->withInput();
         }
 
-        $dadosForm['password'] = Hash::make($dadosForm['password']);
-
+        $dadosForm['password'] = bcrypt($dadosForm['password']);
         $this->user->create($dadosForm)->save();
 
         $status = "Usuário ".$dadosForm['name']. " foi criado com sucesso!";
 
         $this->request->session()->flash('status',$status);
 
-        $this->dispararEmails($dadosForm['name']);
+        //$this->dispararEmails($dadosForm['name']);
 
 
         return redirect('users');
@@ -94,16 +96,16 @@ class UserController extends Controller {
         'email' => "required|email|max:250|unique:users,email,$id",
         'password' => 'required|min:3|max:20',
         ];
-        $validador = Validator::make($dadosForm, $rules);
+        $validador = $this->validator->make($dadosForm, $rules);
         if( $validador->fails() ){
             return redirect("users/editar/$id")
             ->withErrors($validador)
             ->withInput();
         }
         $dadosForm = $this->request->except('_token');
-        $dadosForm['password'] = Hash::make($dadosForm['password']);
-
+        $dadosForm['password'] = bcrypt($dadosForm['password']);
         $this->user->where('id',$id)->update($dadosForm);
+
 
         return redirect('users');
     }
@@ -112,11 +114,16 @@ class UserController extends Controller {
 
         Mail::send('emails.viewTesteEmail', ['name' => $name], function ($m){
             $m->to('igorfaria6@gmail.com', 'Aqui e o nome')
-                    ->subject('Novo usuario cadastrado')
-                    ->attach('http://wallpaper.ultradownloads.com.br/121350_Papel-de-Parede-Imagem-Abstrata_1920x1200.jpg');
-});
+            ->subject('Novo usuario cadastrado')
+            ->attach('http://wallpaper.ultradownloads.com.br/121350_Papel-de-Parede-Imagem-Abstrata_1920x1200.jpg');
+        });
     }
+    private function dispararEmailsFila($name) {
 
-
+        $this->mail->queue('emails.viewTesteEmail', ['name' => $name], function ($m) use ($name) {
+          $m->from('hello@app.com', 'Your Application');
+          $m->to('igorfaria6@gmail.com', 'Nome do Usuario')->subject('Your Reminder!');
+      });
+    }
 
 }

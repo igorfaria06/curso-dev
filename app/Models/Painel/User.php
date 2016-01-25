@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Curso;
+namespace App\Models\Painel;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

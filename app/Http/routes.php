@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return 'Home Page do Site';
+    return view('welcome');
 });
 
 /*
@@ -118,3 +118,10 @@ Route::get('email', function(){
 
 
 Route::controller('collection', 'CollectionController');
+
+Route::get('services', function(){
+	dd(App::make('geraLog', [1,2,3,4,5,6,7]));
+
+	return 'services';
+});
+Route::controller('atributos', 'AtributosController');

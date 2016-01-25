@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableCarro extends Migration
+class CreateCarrosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,10 @@ class CreateTableCarro extends Migration
      */
     public function up()
     {
-        Schema::create('carros', function(Blueprint $table){
+        Schema::create('carros', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_marca')->unsigned();
+            $table->foreign('id_marca')->references('id')->on('carros_marca');
             $table->string('nome');
             $table->string('placa');
             $table->timestamps();
@@ -27,6 +29,6 @@ class CreateTableCarro extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carros');
+        Schema::drop('carros');
     }
 }

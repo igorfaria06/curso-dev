@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Carro extends Model
 {
-    protected $guarded = ['id'];
-    protected $table = 'carros';
+
+	protected $guarded = ['id'];
+	protected $table = 'carros';
 }

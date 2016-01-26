@@ -125,3 +125,7 @@ Route::get('services', function(){
 	return 'services';
 });
 Route::controller('atributos', 'AtributosController');
+
+Route::get('collections', function(){
+	dd(App\Models\Painel\Carro::find(1)->getCores()->get()->toArray());
+});

@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://laravel.dev',
+    'url' => 'http://localhost/laravel/curso-dev/public/',
 
     /*
     |--------------------------------------------------------------------------

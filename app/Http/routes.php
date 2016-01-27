@@ -11,121 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'painel'], function(){
+   
+Route::controller('/', 'Painel\PainelController');    
+       
 });
 
-/*
-Route::get('/contato', function(){
-	return 'Página de Contato';
-});
+Route::controller('/carros', 'CarrosController'); 
 
 
-Route::get('empresa', function(){
-	return 'Página Empresa';
-});
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
-Route::post('cadastrar/user', function(){
-	return 'Cadastrando usuário...';
-});
-
-Route::match(['post', 'get'], '/match', function(){
-	return 'Minha Rota match';
-});
-
-
-Route::any('any', function(){
-	return 'Rota do Tipo Any';
-});
-
-
-Route::get('produtos', function(){
-	return 'Listagem dos produtos';
-});
-
-Route::get('produto/adicionar', function(){
-	return 'Form Add Prod';
-});
-
-Route::get('produto/editar/{idProduto}', function($idProduto){
-	return "Editar o Produto => {$idProduto}";
-})
-->where('idProduto', '[0-9]+');
-
-
-Route::get('produto/deletar/{idProduto?}', function($idProduto = ''){
-	return "Deletar O produto => {$idProduto}";
-});
-
-Route::get('produto/{idProduto}/imagem/{idImagem}', function($idProduto, $idImagem){
-	return "Produto => {$idProduto}, e imagem -> {$idImagem}";
-});
-
-
-
-Route::group(['prefix' => 'painel', 'middleware' => 'my-middleware'], function(){
-
-	Route::get('/', function(){
-		return view('painel.home.index');
-	});
-
-	Route::get('financeiro', function(){
-		return view('painel.financeiro.index');
-	});
-
-	Route::get('usuarios', function(){
-		return 'Usuário';
-	});
-
-});
-
-
-Route::get('/login', function(){
-	return 'Formulário de Login';
-});
-*/
-Route::get('produtos', 'ProdutoController@index');
-Route::get('produto/create', 'ProdutoController@create');
-Route::post('produto/create', 'ProdutoController@store');
-Route::get('produto/{idProd}', 'ProdutoController@show');
-Route::get('produto/edit/{idProd}', 'ProdutoController@edit');
-
-
-Route::controller('carros', 'CarrosController');
-
-Route::controller('users', 'UserController');
-
-Route::get('sessao/gravar', function(){
-
-	echo "GRAVAR: Gravando sessão";
-	session(['msg'=>'Gravando sessão no Laravel!']);
-
-});
-
-Route::get('sessao/exibir', function(){
-
-	$msg = session('msg');
-
-	return $msg;
-});
-
-Route::get('email', function(){
-
-	Mail::raw('Mensagem de texto puro', function($m){
-		$m->to('igorfaria6@gmail.com', 'Joao')->subject('Novo usuario cadastrado');
-	});
-});
-
-
-Route::controller('collection', 'CollectionController');
-
-Route::get('services', function(){
-	dd(App::make('geraLog', [1,2,3,4,5,6,7]));
-
-	return 'services';
-});
-Route::controller('atributos', 'AtributosController');
-
-Route::get('collections', function(){
-	dd(App\Models\Painel\Carro::find(1)->getCores()->get()->toArray());
-});
+// Registration routes...
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');

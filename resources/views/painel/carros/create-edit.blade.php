@@ -20,11 +20,8 @@
 {!!Form::text('placa', isset($carro->placa) ? $carro->placa : null, ['placeholder' => 'Placa do Carro', 'class' => 'form-control form-group'] )!!}
 {!!Form::text('chassis', null, ['placeholder' => 'Chassis do Carro', 'class' => 'form-control form-group'] )!!}
 {!!Form::select('id_marca', $marcas, isset($carro->id_marca) ? $carro->id_marca : null, ['class' => 'form-control form-group'] )!!}
-<ul class="form-group list-inline">
-	@foreach($cores as $cor)
-	<li>{{$cor->nome}} {!!Form::checkbox("cor", "{$cor->id}", null, ['class' => 'field form-group form-control'])!!}</li>
-	@endforeach
-</ul>
+{!!Form::select('cores[]', $cores, null, ['class' => 'form-control form-group', 'multiple'] )!!}
+
 {!!Form::submit('Enviar', ['class' => 'btn btn-default form-group'])!!}
 {!!Form::close()!!}
 @endsection

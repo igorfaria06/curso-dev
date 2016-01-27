@@ -10,9 +10,16 @@ use App\Http\Controllers\Controller;
 class HomeController extends Controller
 {
     
-        public function getIndex(){
-            return 'Index do Site';
+        public function Index(){
+            return view('site.home.index');
         }
         
+        public function getSobre(){
+            return view('site.sobre.index');
+        }
+        
+        public function missingMethod($params = array()) {
+            echo view('site.404', compact('params'));
+        }
     
 }

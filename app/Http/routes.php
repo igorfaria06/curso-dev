@@ -16,8 +16,9 @@ Route::group(['prefix' => 'painel'], function(){
 Route::controller('/', 'Painel\PainelController');    
        
 });
+Route::get('/', 'Site\HomeController@index'); 
 
-Route::controller('/carros', 'CarrosController'); 
+Route::controller('/carros', 'Painel\CarrosController'); 
 
 
 Route::get('auth/login', 'Auth\AuthController@getLogin');
